@@ -1,0 +1,214 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+}
+
+enum SkillCategory {
+  FRONTEND
+  BACKEND
+  DATABASE
+  TOOLS
+  OTHER
+}
+
+enum ProjectStatus {
+  COMPLETED
+  IN_PROGRESS
+  ARCHIVED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  name        String
+  title       String
+  subtitle    String?
+  description String   @db.Text
+
+  email       String
+  phone       String?
+  location    String?
+
+  avatarUrl   String?
+  resumeUrl   String?
+
+  github      String?
+  linkedin    String?
+  twitter     String?
+  website     String?
+
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model About {
+  id                 String   @id @default(cuid())
+  title              String
+  content            String   @db.Text
+  imageUrl           String?
+
+  yearsExperience    Int      @default(0)
+  projectsCompleted  Int      @default(0)
+  happyClients       Int      @default(0)
+  technologies       Int      @default(0)
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Skill {
+  id         String         @id @default(cuid())
+
+  name       String
+  percentage Int            @default(0)
+  category   SkillCategory  @default(FRONTEND)
+
+  iconUrl    String?
+
+  order      Int            @default(0)
+
+  isActive   Boolean        @default(true)
+
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+}
+
+model Experience {
+  id             String   @id @default(cuid())
+
+  company        String
+  position       String
+  employmentType String?
+
+  description    String @db.Text
+
+  startDate      DateTime
+  endDate        DateTime?
+
+  isCurrent      Boolean @default(false)
+
+  logoUrl        String?
+  location       String?
+
+  order          Int @default(0)
+
+  isActive       Boolean @default(true)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Project {
+  id            String   @id @default(cuid())
+
+  title         String
+  slug          String   @unique
+
+  description   String @db.Text
+  content       String? @db.Text
+
+  thumbnailUrl  String?
+  imageUrl      String?
+
+  galleryUrls   String[]
+
+  liveUrl       String?
+  githubUrl     String?
+
+  techStack     String[]
+  features      String[]
+
+  challenges    String? @db.Text
+  solutions     String? @db.Text
+
+  status        ProjectStatus @default(COMPLETED)
+
+  views         Int @default(0)
+
+  isFeatured    Boolean @default(false)
+
+  order         Int @default(0)
+
+  isActive      Boolean @default(true)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SocialLink {
+  id         String   @id @default(cuid())
+
+  platform   String
+
+  url        String
+
+  iconName   String?
+
+  order      Int @default(0)
+
+  isActive   Boolean @default(true)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Message {
+  id         String   @id @default(cuid())
+
+  name       String
+  email      String
+  phone      String?
+
+  subject    String?
+
+  message    String @db.Text
+
+  isRead     Boolean @default(false)
+
+  replied    Boolean @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Resume {
+  id         String   @id @default(cuid())
+
+  title      String
+
+  fileUrl    String
+
+  isActive   Boolean @default(true)
+
+  createdAt  DateTime @default(now())
+}
+
+model Setting {
+  id         String   @id @default(cuid())
+
+  key        String   @unique
+
+  value      String @db.Text
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
