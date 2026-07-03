@@ -58,7 +58,7 @@ export default function ContactSection({ profile }) {
         <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -237,7 +237,7 @@ export default function ContactSection({ profile }) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300 hover:-translate-y-1"
+                    className="px-4! py-2! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300 hover:-translate-y-1"
                   >
                     {social.platform}
                   </a>
@@ -250,7 +250,7 @@ export default function ContactSection({ profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.9 }}
-              className="glass-card-sm p-6 border-l-4 border-green-500"
+              className="glass-card-sm p-6! border-l-4 border-green-500"
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />

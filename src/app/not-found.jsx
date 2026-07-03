@@ -12,7 +12,7 @@ export default function NotFound() {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px]" />
       </div>
 
-      <div className="text-center relative z-10 px-6">
+      <div className="text-center relative z-10 px-6!">
         {/* 404 Text */}
         <h1 className="text-[150px] sm:text-[200px] font-bold leading-none gradient-text mb-4">
           404

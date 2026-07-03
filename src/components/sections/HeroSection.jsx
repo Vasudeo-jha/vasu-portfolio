@@ -74,7 +74,7 @@ export default function HeroSection({ profile }) {
     <section
       id="home"
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20!"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -92,7 +92,7 @@ export default function HeroSection({ profile }) {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div
@@ -105,7 +105,7 @@ export default function HeroSection({ profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-8"
+              className="inline-flex items-center gap-2 px-4! py-2! rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-sm text-gray-300">Available for work</span>
@@ -164,10 +164,17 @@ export default function HeroSection({ profile }) {
                 <Eye className="w-5 h-5" />
                 View Projects
               </Link>
-              <Link href="/resume.pdf" target="_blank" className="btn-secondary">
-                <Download className="w-5 h-5" />
-                Download Resume
-              </Link>
+              {(data.resumeUrl || true) && (
+                <a 
+                  href={data.resumeUrl || '/resume.pdf'} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  <Download className="w-5 h-5" />
+                  Download Resume
+                </a>
+              )}
             </motion.div>
 
             {/* Social Icons */}
@@ -180,10 +187,10 @@ export default function HeroSection({ profile }) {
               <span className="text-gray-500 text-sm">Connect with me:</span>
               <div className="flex gap-3">
                 {[
-                  { icon: GithubIcon, href: 'https://github.com/vasujha' },
-                  { icon: LinkedinIcon, href: 'https://linkedin.com/in/vasujha' },
+                  data.github && { icon: GithubIcon, href: data.github },
+                  data.linkedin && { icon: LinkedinIcon, href: data.linkedin },
                   { icon: Mail, href: `mailto:${data.email || 'contact@vasujha.dev'}` },
-                ].map((social, index) => (
+                ].filter(Boolean).map((social, index) => (
                   <motion.a
                     key={index}
                     href={social.href}
@@ -219,7 +226,7 @@ export default function HeroSection({ profile }) {
             {/* Profile Image Container */}
             <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] lg:w-[400px] lg:h-[400px]">
               {/* Gradient Border Ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 animate-spin-slow">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1! animate-spin-slow">
                 <div className="w-full h-full rounded-full bg-[var(--bg-primary)]" />
               </div>
 
@@ -245,7 +252,7 @@ export default function HeroSection({ profile }) {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + tech.delay * 0.2, type: 'spring' }}
-                  className="absolute glass-card-sm px-3 py-2 flex items-center gap-2"
+                  className="absolute glass-card-sm px-3! py-2! flex items-center gap-2"
                   style={{
                     ...tech.position,
                     animation: `float ${4 + index * 0.5}s ease-in-out infinite`,

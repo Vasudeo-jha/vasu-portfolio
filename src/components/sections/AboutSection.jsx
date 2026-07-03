@@ -16,35 +16,36 @@ function AnimatedCounter({ value, suffix = '' }) {
   );
 }
 
-export default function AboutSection({ profile }) {
+export default function AboutSection({ profile, about }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   
-  // Use profile data or fallback
-  const data = profile || fallbackAbout;
+  // Use profile data for profile info, about data for about-specific content
+  const profileData = profile || fallbackAbout;
+  const aboutData = about || fallbackAbout;
 
   const stats = [
     { 
       icon: Calendar, 
-      value: fallbackAbout.stats?.yearsExperience || 3, 
+      value: aboutData.yearsExperience || fallbackAbout.stats?.yearsExperience || 3, 
       label: 'Years Experience',
       suffix: '+'
     },
     { 
       icon: Briefcase, 
-      value: fallbackAbout.stats?.projectsCompleted || 25, 
+      value: aboutData.projectsCompleted || fallbackAbout.stats?.projectsCompleted || 25, 
       label: 'Projects Completed',
       suffix: '+'
     },
     { 
       icon: Award, 
-      value: fallbackAbout.stats?.happyClients || 15, 
+      value: aboutData.happyClients || fallbackAbout.stats?.happyClients || 15, 
       label: 'Happy Clients',
       suffix: '+'
     },
     { 
       icon: Code, 
-      value: fallbackAbout.stats?.technologies || 20, 
+      value: aboutData.technologies || fallbackAbout.stats?.technologies || 20, 
       label: 'Technologies',
       suffix: '+'
     },
@@ -58,7 +59,7 @@ export default function AboutSection({ profile }) {
         <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -89,12 +90,12 @@ export default function AboutSection({ profile }) {
               
               {/* Main Card */}
               <div className="relative glass-card">
-                {/* Profile Image */}
+                {/* About Image - separate from profile avatar */}
                 <div className="aspect-square rounded-2xl bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center mb-6 overflow-hidden">
-                  {data.avatarUrl ? (
+                  {aboutData.imageUrl ? (
                     <img 
-                      src={data.avatarUrl} 
-                      alt={data.name || 'Profile'}
+                      src={aboutData.imageUrl} 
+                      alt="About Me"
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -110,7 +111,7 @@ export default function AboutSection({ profile }) {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Location</p>
-                      <p className="font-medium">{data.location || 'India'}</p>
+                      <p className="font-medium">{profileData.location || 'India'}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
@@ -151,7 +152,7 @@ export default function AboutSection({ profile }) {
             </h3>
             
             <div className="space-y-4 text-gray-400 leading-relaxed mb-10">
-              {(data.content || data.description || fallbackAbout.content).split('\n\n').map((paragraph, index) => (
+              {(aboutData.content || profileData.description || fallbackAbout.content).split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>

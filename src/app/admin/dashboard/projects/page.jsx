@@ -166,7 +166,7 @@ export default function ProjectsPage() {
               <span className="text-5xl opacity-50">🖼️</span>
               {project.featured && (
                 <div className="absolute top-3 left-3">
-                  <span className="flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-yellow-500 text-black">
+                  <span className="flex items-center gap-1 px-2! py-1! rounded-full text-xs font-medium bg-yellow-500 text-black">
                     <Star className="w-3 h-3 fill-current" />
                     Featured
                   </span>
@@ -175,7 +175,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* Content */}
-            <div className="p-5">
+            <div className="p-5!">
               <h3 className="font-bold text-lg mb-2">{project.title}</h3>
               <p className="text-sm text-gray-400 line-clamp-2 mb-4">
                 {project.shortDescription || project.description}
@@ -186,30 +186,30 @@ export default function ProjectsPage() {
                 {(project.techStack || []).slice(0, 3).map((tech) => (
                   <span
                     key={tech}
-                    className="px-2 py-0.5 rounded text-xs bg-white/5 text-gray-300"
+                    className="px-2! py-0.5! rounded text-xs bg-white/5 text-gray-300"
                   >
                     {tech}
                   </span>
                 ))}
                 {(project.techStack || []).length > 3 && (
-                  <span className="px-2 py-0.5 rounded text-xs bg-white/5 text-gray-400">
+                  <span className="px-2! py-0.5! rounded text-xs bg-white/5 text-gray-400">
                     +{(project.techStack || []).length - 3}
                   </span>
                 )}
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-2 pt-4 border-t border-white/5">
+              <div className="flex items-center gap-2 pt-4! border-t border-white/5">
                 <button
                   onClick={() => openEditModal(project)}
-                  className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 py-2! rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(project.id)}
-                  className="p-2 rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                  className="p-2! rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -218,7 +218,7 @@ export default function ProjectsPage() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
+                    className="p-2! rounded-lg text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -228,7 +228,7 @@ export default function ProjectsPage() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-2! rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
                   >
                     <GithubIcon className="w-4 h-4" />
                   </a>
@@ -238,7 +238,7 @@ export default function ProjectsPage() {
           </div>
         ))}
         {projects.length === 0 && (
-          <div className="col-span-full text-center py-12 text-gray-400">
+          <div className="col-span-full text-center py-12! text-gray-400">
             No projects added yet. Click "Add Project" to get started.
           </div>
         )}
@@ -246,7 +246,7 @@ export default function ProjectsPage() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4! overflow-y-auto">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setShowModal(false)}
@@ -262,7 +262,7 @@ export default function ProjectsPage() {
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                className="p-2! rounded-lg hover:bg-white/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -369,7 +369,7 @@ export default function ProjectsPage() {
                 </label>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-4!">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}

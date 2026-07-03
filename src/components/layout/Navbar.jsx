@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Menu, X, Download, Mail, Moon, Sun } from 'lucide-react';
+import { Menu, X, Mail, Moon, Sun } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 
 export default function Navbar() {
@@ -59,7 +59,7 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-6! py-4!">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -72,12 +72,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-4">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`px-4! py-2.5! rounded-xl text-sm font-medium transition-all duration-300 ${
                   activeSection === link.href.replace('#', '')
                     ? 'text-white bg-white/10'
                     : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -93,7 +93,7 @@ export default function Navbar() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="p-2.5! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
@@ -103,20 +103,10 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Download Resume Button */}
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300"
-            >
-              <Download className="w-4 h-4" />
-              Resume
-            </Link>
-
             {/* Hire Me Button */}
             <button
               onClick={() => scrollToSection('#contact')}
-              className="hidden sm:flex btn-primary py-2.5 px-5 text-sm"
+              className="hidden sm:flex btn-primary py-2.5! px-5! text-sm"
             >
               <Mail className="w-4 h-4" />
               Hire Me
@@ -125,7 +115,7 @@ export default function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="lg:hidden p-2.5! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -133,6 +123,9 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+
+
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -144,7 +137,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-t border-white/5"
           >
-            <div className="container mx-auto px-6 py-6 space-y-2 flex gap-2">
+            <div className="container mx-auto px-6! py-6! space-y-2 flex gap-2">
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.name}
@@ -152,7 +145,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
                   onClick={() => scrollToSection(link.href)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                  className={`w-full text-left px-4! py-3! rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === link.href.replace('#', '')
                       ? 'text-white bg-white/10'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -162,23 +155,23 @@ export default function Navbar() {
                 </motion.button>
               ))}
               
-              <div className="pt-4 flex gap-3">
+              <div className="pt-4! flex gap-3">
                 <Link
                   href="/resume.pdf"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300"
+                  className="flex-1 flex items-center justify-center gap-2 px-4! py-3! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300"
                   onClick={() => setIsOpen(false)}
                 >
                   <Download className="w-4 h-4" />
                   Resume
                 </Link>
-                {/* <button
+                <button
                   onClick={() => scrollToSection('#contact')}
-                  className="flex-1 btn-primary py-3 text-sm justify-center"
+                  className="flex-1 btn-primary py-3! text-sm justify-center"
                 >
                   <Mail className="w-4 h-4" />
                   Hire Me
-                </button> */}
+                </button>
               </div>
             </div>
           </motion.div>

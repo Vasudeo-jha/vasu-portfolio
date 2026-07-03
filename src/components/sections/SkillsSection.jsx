@@ -90,7 +90,7 @@ export default function SkillsSection({ skills }) {
         <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -129,7 +129,7 @@ export default function SkillsSection({ skills }) {
           {categories.map((category) => (
             <span
               key={category}
-              className="px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-gray-400"
+              className="px-4! py-2! rounded-full text-sm font-medium bg-white/5 border border-white/10 text-gray-400"
             >
               {category}
             </span>

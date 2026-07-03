@@ -42,7 +42,7 @@ export async function PUT(request) {
     }
 
     const body = await request.json();
-    const { name, title, subtitle, description, email, phone, location, avatarUrl, resumeUrl } = body;
+    const { name, title, subtitle, description, email, phone, location, avatarUrl, resumeUrl, github, linkedin, twitter, website } = body;
 
     // Build update data object with only provided fields
     const updateData = {};
@@ -55,6 +55,10 @@ export async function PUT(request) {
     if (location !== undefined) updateData.location = location;
     if (avatarUrl !== undefined) updateData.avatarUrl = avatarUrl;
     if (resumeUrl !== undefined) updateData.resumeUrl = resumeUrl;
+    if (github !== undefined) updateData.github = github;
+    if (linkedin !== undefined) updateData.linkedin = linkedin;
+    if (twitter !== undefined) updateData.twitter = twitter;
+    if (website !== undefined) updateData.website = website;
 
     // Find existing profile or create new one
     let profile = await prisma.profile.findFirst();
@@ -76,6 +80,10 @@ export async function PUT(request) {
           location,
           avatarUrl,
           resumeUrl,
+          github,
+          linkedin,
+          twitter,
+          website,
         },
       });
     }

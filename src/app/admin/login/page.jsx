@@ -77,7 +77,7 @@ export default function AdminLogin() {
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-4! flex items-center pointer-events-none">
                   <Mail className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
@@ -90,7 +90,7 @@ export default function AdminLogin() {
                       message: 'Invalid email address',
                     },
                   })}
-                  className="input-glass pl-12"
+                  className="input-glass pl-12!"
                   placeholder="admin@example.com"
                 />
               </div>
@@ -105,7 +105,7 @@ export default function AdminLogin() {
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-4! flex items-center pointer-events-none">
                   <Lock className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
@@ -118,13 +118,13 @@ export default function AdminLogin() {
                       message: 'Password must be at least 6 characters',
                     },
                   })}
-                  className="input-glass pl-12 pr-12"
+                  className="input-glass pl-12! pr-12!"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-gray-300"
+                  className="absolute inset-y-0 right-0 pr-4! flex items-center text-gray-500 hover:text-gray-300"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>

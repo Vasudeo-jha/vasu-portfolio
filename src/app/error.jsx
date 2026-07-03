@@ -17,7 +17,7 @@ export default function Error({ error, reset }) {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[150px]" />
       </div>
 
-      <div className="text-center relative z-10 px-6">
+      <div className="text-center relative z-10 px-6!">
         {/* Error Icon */}
         <div className="w-24 h-24 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-8">
           <span className="text-5xl">⚠️</span>

@@ -48,7 +48,7 @@ export default async function ProjectPage({ params }) {
   return (
     <>
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24!">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           {/* Background Effects */}
@@ -57,7 +57,7 @@ export default async function ProjectPage({ params }) {
             <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px]" />
           </div>
 
-          <div className="container mx-auto px-6 py-16 relative z-10">
+          <div className="container mx-auto px-6! py-16! relative z-10">
             {/* Back Button */}
             <Link
               href="/#projects"
@@ -109,7 +109,7 @@ export default async function ProjectPage({ params }) {
         </section>
 
         {/* Project Image */}
-        <section className="container mx-auto px-6 py-8">
+        <section className="container mx-auto px-6! py-8!">
           <div className="glass-card overflow-hidden rounded-3xl">
             <div className="aspect-video bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center">
               <span className="text-9xl opacity-50">🖼️</span>
@@ -118,7 +118,7 @@ export default async function ProjectPage({ params }) {
         </section>
 
         {/* Project Details */}
-        <section className="container mx-auto px-6 py-16">
+        <section className="container mx-auto px-6! py-16!">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
@@ -140,7 +140,7 @@ export default async function ProjectPage({ params }) {
                     {project.features.map((feature, index) => (
                       <div
                         key={index}
-                        className="glass-card-sm p-4 flex items-center gap-3"
+                        className="glass-card-sm p-4! flex items-center gap-3"
                       >
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-blue-400">
                           ✓
@@ -156,13 +156,13 @@ export default async function ProjectPage({ params }) {
               {(project.challenges || project.solutions) && (
                 <div className="grid md:grid-cols-2 gap-8">
                   {project.challenges && (
-                    <div className="glass-card p-6">
+                    <div className="glass-card p-6!">
                       <h3 className="text-xl font-bold mb-4 text-orange-400">Challenges</h3>
                       <p className="text-gray-400 leading-relaxed">{project.challenges}</p>
                     </div>
                   )}
                   {project.solutions && (
-                    <div className="glass-card p-6">
+                    <div className="glass-card p-6!">
                       <h3 className="text-xl font-bold mb-4 text-green-400">Solutions</h3>
                       <p className="text-gray-400 leading-relaxed">{project.solutions}</p>
                     </div>
@@ -174,7 +174,7 @@ export default async function ProjectPage({ params }) {
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Tech Stack */}
-              <div className="glass-card p-6">
+              <div className="glass-card p-6!">
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                   <Tag className="w-5 h-5 text-blue-400" />
                   Tech Stack
@@ -183,7 +183,7 @@ export default async function ProjectPage({ params }) {
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 border border-white/10 text-gray-300"
+                      className="px-3! py-1.5! rounded-lg text-sm font-medium bg-white/5 border border-white/10 text-gray-300"
                     >
                       {tech}
                     </span>
@@ -192,7 +192,7 @@ export default async function ProjectPage({ params }) {
               </div>
 
               {/* Project Links */}
-              <div className="glass-card p-6">
+              <div className="glass-card p-6!">
                 <h3 className="text-lg font-bold mb-4">Project Links</h3>
                 <div className="space-y-3">
                   {project.liveUrl && (
@@ -225,14 +225,14 @@ export default async function ProjectPage({ params }) {
 
         {/* Related Projects */}
         {relatedProjects.length > 0 && (
-          <section className="container mx-auto px-6 py-16 border-t border-white/5">
+          <section className="container mx-auto px-6! py-16! border-t border-white/5">
             <h2 className="text-2xl font-bold mb-8">Related Projects</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {relatedProjects.map((relProject) => (
                 <Link
                   key={relProject.slug}
                   href={`/projects/${relProject.slug}`}
-                  className="glass-card-sm p-6 group card-hover"
+                  className="glass-card-sm p-6! group card-hover"
                 >
                   <div className="aspect-video rounded-xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center mb-4">
                     <span className="text-4xl opacity-50">🖼️</span>

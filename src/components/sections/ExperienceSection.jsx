@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, Calendar, Building2 } from 'lucide-react';
-import { experienceData } from '@/lib/data';
+import { MapPin, Calendar, Building2, ExternalLink } from 'lucide-react';
+import { experienceData as fallbackExperience } from '@/lib/data';
 
 function formatDate(dateString) {
   if (!dateString) return 'Present';
@@ -40,13 +40,25 @@ function ExperienceCard({ experience, index, isInView, isLast }) {
                 <h3 className="text-xl font-bold group-hover:text-white transition-colors">
                   {experience.position}
                 </h3>
-                <p className="text-gray-400">{experience.company}</p>
+                {experience.companyUrl ? (
+                  <a
+                    href={experience.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  >
+                    {experience.company}
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <p className="text-gray-400">{experience.company}</p>
+                )}
               </div>
             </div>
           </div>
 
           {/* Date Badge */}
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+          <div className="flex items-center gap-2 px-4! py-2! rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
             <Calendar className="w-4 h-4 text-blue-400" />
             <span className="text-sm text-gray-300">
               {formatDate(experience.startDate)} - {formatDate(experience.endDate)}
@@ -60,7 +72,7 @@ function ExperienceCard({ experience, index, isInView, isLast }) {
         </p>
 
         {/* Footer */}
-        <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-white/5">
+        <div className="flex flex-wrap items-center gap-4 pt-4! border-t border-white/5">
           {experience.location && (
             <span className="flex items-center gap-2 text-sm text-gray-500">
               <MapPin className="w-4 h-4" />
@@ -68,7 +80,7 @@ function ExperienceCard({ experience, index, isInView, isLast }) {
             </span>
           )}
           {experience.isCurrent && (
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+            <span className="px-3! py-1! rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
               Current Position
             </span>
           )}
@@ -78,9 +90,12 @@ function ExperienceCard({ experience, index, isInView, isLast }) {
   );
 }
 
-export default function ExperienceSection() {
+export default function ExperienceSection({ experiences }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+
+  // Use passed experiences or fallback
+  const experienceList = experiences && experiences.length > 0 ? experiences : fallbackExperience;
 
   return (
     <section id="experience" ref={sectionRef} className="section relative overflow-hidden">
@@ -90,7 +105,7 @@ export default function ExperienceSection() {
         <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -109,13 +124,13 @@ export default function ExperienceSection() {
 
         {/* Timeline */}
         <div className="max-w-4xl mx-auto">
-          {experienceData.map((exp, index) => (
+          {experienceList.map((exp, index) => (
             <ExperienceCard
               key={exp.id}
               experience={exp}
               index={index}
               isInView={isInView}
-              isLast={index === experienceData.length - 1}
+              isLast={index === experienceList.length - 1}
             />
           ))}
         </div>

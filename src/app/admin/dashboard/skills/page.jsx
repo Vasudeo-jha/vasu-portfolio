@@ -116,7 +116,7 @@ export default function SkillsPage() {
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group"
+              className="flex items-center gap-4 p-4! rounded-xl bg-white/5 hover:bg-white/10 transition-colors group"
             >
               <GripVertical className="w-5 h-5 text-gray-500 cursor-grab" />
               
@@ -133,27 +133,27 @@ export default function SkillsPage() {
                 </div>
               </div>
 
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-300">
+              <span className="px-3! py-1! rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-300">
                 {skill.category}
               </span>
 
               <button
                 onClick={() => handleDeleteSkill(skill.id, index)}
-                className="p-2 rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                className="p-2! rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
           ))}
           {skills.length === 0 && (
-            <p className="text-center text-gray-400 py-8">No skills added yet. Click "Add Skill" to get started.</p>
+            <p className="text-center text-gray-400 py-8!">No skills added yet. Click "Add Skill" to get started.</p>
           )}
         </div>
       </motion.div>
 
       {/* Add Skill Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4!">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setShowAddModal(false)}
@@ -222,7 +222,7 @@ export default function SkillsPage() {
                 )}
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-4!">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}

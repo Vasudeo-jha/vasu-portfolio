@@ -12,6 +12,8 @@ import {
   ArrowRight,
   Loader2,
   RefreshCw,
+  Briefcase,
+  Info,
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -82,6 +84,20 @@ export default function AdminDashboard() {
       color: 'from-green-500 to-emerald-500',
       count: stats.projects.length,
     },
+    { 
+      name: 'Manage Experience', 
+      description: 'Add or edit work experience',
+      href: '/admin/dashboard/experience', 
+      icon: Briefcase, 
+      color: 'from-orange-500 to-amber-500',
+    },
+    { 
+      name: 'Edit About', 
+      description: 'Update about section',
+      href: '/admin/dashboard/about', 
+      icon: Info, 
+      color: 'from-teal-500 to-cyan-500',
+    },
   ];
 
   return (
@@ -144,7 +160,7 @@ export default function AdminDashboard() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link
             href="/admin/dashboard/skills"
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300"
+            className="flex items-center gap-4 p-4! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300"
           >
             <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
               <Plus className="w-6 h-6 text-blue-400" />
@@ -157,7 +173,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/dashboard/projects"
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-green-500/50 transition-all duration-300"
+            className="flex items-center gap-4 p-4! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-green-500/50 transition-all duration-300"
           >
             <div className="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center">
               <Plus className="w-6 h-6 text-green-400" />
@@ -170,7 +186,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/dashboard/profile"
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300"
+            className="flex items-center gap-4 p-4! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300"
           >
             <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
               <User className="w-6 h-6 text-purple-400" />
@@ -205,7 +221,7 @@ export default function AdminDashboard() {
             {stats.projects.slice(0, 5).map((project) => (
               <div
                 key={project.id}
-                className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                className="flex items-center gap-4 p-4! rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
                   <FolderKanban className="w-5 h-5 text-blue-400" />
@@ -217,7 +233,7 @@ export default function AdminDashboard() {
                   </p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  className={`px-3! py-1! rounded-full text-xs font-medium ${
                     project.status === 'COMPLETED'
                       ? 'bg-green-500/20 text-green-400'
                       : project.status === 'IN_PROGRESS'
@@ -239,7 +255,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="glass-card p-6"
+          className="glass-card p-6!"
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold">Your Skills</h2>
@@ -255,7 +271,7 @@ export default function AdminDashboard() {
             {stats.skills.map((skill) => (
               <span
                 key={skill.id}
-                className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-medium"
+                className="px-4! py-2! rounded-xl bg-white/5 border border-white/10 text-sm font-medium"
               >
                 {skill.name}
                 <span className="ml-2 text-gray-400">{skill.percentage}%</span>
@@ -271,7 +287,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="glass-card p-12 text-center"
+          className="glass-card p-12! text-center"
         >
           <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
             <FolderKanban className="w-10 h-10 text-blue-400" />

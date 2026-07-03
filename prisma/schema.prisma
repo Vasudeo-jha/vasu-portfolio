@@ -96,6 +96,7 @@ model Experience {
   id             String   @id @default(cuid())
 
   company        String
+  companyUrl     String?
   position       String
   employmentType String?
 

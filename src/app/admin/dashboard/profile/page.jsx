@@ -36,6 +36,11 @@ export default function ProfilePage() {
           email: data.email || '',
           phone: data.phone || '',
           location: data.location || '',
+          github: data.github || '',
+          linkedin: data.linkedin || '',
+          twitter: data.twitter || '',
+          website: data.website || '',
+          resumeUrl: data.resumeUrl || '',
         });
         if (data.avatarUrl) {
           setAvatarPreview(data.avatarUrl);
@@ -229,6 +234,79 @@ export default function ProfilePage() {
                 className="input-glass"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="glass-card">
+          <h2 className="text-xl font-bold mb-6">Social Links</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                GitHub URL
+              </label>
+              <input
+                type="url"
+                {...register('github')}
+                className="input-glass"
+                placeholder="https://github.com/username"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                LinkedIn URL
+              </label>
+              <input
+                type="url"
+                {...register('linkedin')}
+                className="input-glass"
+                placeholder="https://linkedin.com/in/username"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Twitter URL
+              </label>
+              <input
+                type="url"
+                {...register('twitter')}
+                className="input-glass"
+                placeholder="https://twitter.com/username"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Website URL
+              </label>
+              <input
+                type="url"
+                {...register('website')}
+                className="input-glass"
+                placeholder="https://yourwebsite.com"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Resume */}
+        <div className="glass-card">
+          <h2 className="text-xl font-bold mb-6">Resume</h2>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Resume URL (PDF link)
+            </label>
+            <input
+              type="url"
+              {...register('resumeUrl')}
+              className="input-glass"
+              placeholder="https://drive.google.com/file/d/.../view or direct PDF link"
+            />
+            <p className="mt-2 text-sm text-gray-500">
+              Upload your resume to Google Drive, Dropbox, or any file hosting and paste the link here.
+            </p>
           </div>
         </div>
 

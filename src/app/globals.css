@@ -25,9 +25,10 @@
   --glow-purple: rgba(139, 92, 246, 0.5);
 }
 
-* {
-  margin: 0;
-  padding: 0;
+/* Only reset box-sizing - let Tailwind handle margin/padding */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 

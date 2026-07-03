@@ -34,7 +34,7 @@ function ProjectCard({ project, index, isInView }) {
           {/* Featured Badge */}
           {isFeatured && (
             <div className="absolute top-4 left-4 z-10">
-              <span className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
+              <span className="flex items-center gap-1 px-3! py-1.5! rounded-full text-xs font-semibold bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
                 <Star className="w-3 h-3 fill-current" />
                 Featured
               </span>
@@ -45,7 +45,7 @@ function ProjectCard({ project, index, isInView }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
-            className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)]/80 to-transparent flex items-end justify-center pb-6"
+            className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)]/80 to-transparent flex items-end justify-center pb-6!"
           >
             <div className="flex gap-3">
               {project.liveUrl && (
@@ -55,7 +55,7 @@ function ProjectCard({ project, index, isInView }) {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium shadow-lg"
+                  className="flex items-center gap-2 px-5! py-2.5! rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium shadow-lg"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Live Demo
@@ -68,7 +68,7 @@ function ProjectCard({ project, index, isInView }) {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium"
+                  className="flex items-center gap-2 px-5! py-2.5! rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium"
                 >
                   <GithubIcon className="w-4 h-4" />
                   GitHub
@@ -79,7 +79,7 @@ function ProjectCard({ project, index, isInView }) {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-6!">
           <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors">
             {project.title}
           </h3>
@@ -92,26 +92,38 @@ function ProjectCard({ project, index, isInView }) {
             {techStack.slice(0, 4).map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-300"
+                className="px-3! py-1! rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-300"
               >
                 {tech}
               </span>
             ))}
             {techStack.length > 4 && (
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-400">
+              <span className="px-3! py-1! rounded-full text-xs font-medium bg-white/5 border border-white/10 text-gray-400">
                 +{techStack.length - 4} more
               </span>
             )}
           </div>
 
           {/* View Details Link */}
-          <Link
-            href={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors group/link"
-          >
-            View Details
-            <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-          </Link>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors group/link cursor-pointer"
+            >
+              View Details
+              <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+            </a>
+          ) : (
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors group/link"
+            >
+              View Details
+              <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>
@@ -137,7 +149,7 @@ export default function ProjectsSection({ projects }) {
         <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6! relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
