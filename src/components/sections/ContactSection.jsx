@@ -254,9 +254,9 @@ export default function ContactSection({ profile }) {
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                <p className="font-semibold text-green-400">Available for Work</p>
+                <p className="font-semibold text-green-500">Available for Work</p>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className="text-[var(--text-secondary)] text-sm">
                 I&apos;m currently open to new opportunities. Let&apos;s discuss how I can help with your project!
               </p>
             </motion.div>

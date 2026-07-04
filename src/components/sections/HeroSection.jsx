@@ -108,7 +108,7 @@ export default function HeroSection({ profile }) {
               className="inline-flex items-center gap-2 px-4! py-2! rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm text-gray-300">Available for work</span>
+              <span className="text-sm text-[var(--text-secondary)]">Available for work</span>
             </motion.div>
 
             {/* Heading */}

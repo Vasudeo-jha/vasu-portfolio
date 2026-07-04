@@ -55,7 +55,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-white/5' 
+          ? 'bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--glass-border)]' 
           : 'bg-transparent'
       }`}
     >
@@ -79,8 +79,8 @@ export default function Navbar() {
                 onClick={() => scrollToSection(link.href)}
                 className={`px-4! py-2.5! rounded-xl text-sm font-medium transition-all duration-300 ${
                   activeSection === link.href.replace('#', '')
-                    ? 'text-white bg-white/10'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'text-blue-500 bg-blue-500/10'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)]'
                 }`}
               >
                 {link.name}
@@ -93,7 +93,7 @@ export default function Navbar() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2.5! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300 text-[var(--text-primary)]"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
@@ -115,7 +115,7 @@ export default function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2.5! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="lg:hidden p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300 text-[var(--text-primary)]"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -135,7 +135,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-t border-white/5"
+            className="lg:hidden bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-t border-[var(--glass-border)]"
           >
             <div className="container mx-auto px-6! py-6! space-y-2 flex gap-2">
               {navLinks.map((link, index) => (
@@ -147,8 +147,8 @@ export default function Navbar() {
                   onClick={() => scrollToSection(link.href)}
                   className={`w-full text-left px-4! py-3! rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === link.href.replace('#', '')
-                      ? 'text-white bg-white/10'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'text-blue-500 bg-blue-500/10'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)]'
                   }`}
                 >
                   {link.name}
@@ -159,7 +159,7 @@ export default function Navbar() {
                 <Link
                   href="/resume.pdf"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 px-4! py-3! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300"
+                  className="flex-1 flex items-center justify-center gap-2 px-4! py-3! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] text-sm font-medium transition-all duration-300 text-[var(--text-primary)]"
                   onClick={() => setIsOpen(false)}
                 >
                   <Download className="w-4 h-4" />
