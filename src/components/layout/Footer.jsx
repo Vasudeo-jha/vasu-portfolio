@@ -100,10 +100,11 @@ export default function Footer({ profile }) {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8! border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm flex items-center gap-1">
-            © {currentYear} {data.name || 'Vasu Jha'}. Made with 
-            <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-            using Next.js
+          <p className="text-gray-400 text-sm flex flex-wrap items-center justify-center sm:justify-start gap-1">
+            <span>© {currentYear} {data.name || 'Vasu Jha'}.</span>
+            <span className="flex items-center gap-1">
+              Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> using Next.js
+            </span>
           </p>
           
           {/* Back to Top Button */}

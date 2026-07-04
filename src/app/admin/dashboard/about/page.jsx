@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Save, Upload, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 export default function AboutPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -96,11 +101,11 @@ export default function AboutPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold">About Section</h1>
-        <p className="text-gray-400 mt-1">Manage your About Me section content and image</p>
+        <h1 className="text-2xl sm:text-3xl font-bold">About Section</h1>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">Manage your About Me section content and image</p>
       </div>
 
       <motion.form
@@ -111,147 +116,134 @@ export default function AboutPage() {
         className="space-y-8"
       >
         {/* About Image Section */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">About Section Image</h2>
-          <p className="text-sm text-gray-400 mb-4">
-            This image will be displayed in the About Me section (separate from profile avatar).
-          </p>
-          <div className="flex items-start gap-6">
-            <div className="relative">
-              <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-blue-500/30 to-purple-600/30 flex items-center justify-center text-5xl overflow-hidden border border-white/10">
-                {imagePreview ? (
-                  <img src={imagePreview} alt="About" className="w-full h-full object-cover" />
-                ) : (
-                  '👨‍💻'
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">About Section Image</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              This image will be displayed in the About Me section (separate from profile avatar).
+            </p>
+            <div className="flex items-start gap-6">
+              <div className="relative">
+                <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-blue-500/30 to-purple-600/30 flex items-center justify-center text-5xl overflow-hidden border border-border">
+                  {imagePreview ? (
+                    <img src={imagePreview} alt="About" className="w-full h-full object-cover" />
+                  ) : (
+                    '👨‍💻'
+                  )}
+                </div>
+                <label className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-primary/80 transition-colors">
+                  <Upload className="w-5 h-5" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+              <div className="flex-1">
+                <p className="font-medium">Upload About Section Image</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  JPG, PNG or GIF. Recommended: Square image (1:1 ratio). Max size 2MB.
+                </p>
+                {imagePreview && (
+                  <button
+                    type="button"
+                    onClick={() => setImagePreview(null)}
+                    className="mt-3 text-sm text-destructive hover:text-destructive/80 transition-colors"
+                  >
+                    Remove Image
+                  </button>
                 )}
               </div>
-              <label className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors">
-                <Upload className="w-5 h-5" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </label>
             </div>
-            <div className="flex-1">
-              <p className="font-medium">Upload About Section Image</p>
-              <p className="text-sm text-gray-400 mt-1">
-                JPG, PNG or GIF. Recommended: Square image (1:1 ratio). Max size 2MB.
-              </p>
-              {imagePreview && (
-                <button
-                  type="button"
-                  onClick={() => setImagePreview(null)}
-                  className="mt-3 text-sm text-red-400 hover:text-red-300 transition-colors"
-                >
-                  Remove Image
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* About Content */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">About Content</h2>
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Section Title
-              </label>
-              <input
-                type="text"
-                {...register('title')}
-                className="input-glass"
-                placeholder="About Me"
-              />
-            </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">About Content</h2>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <Label>Section Title</Label>
+                <Input
+                  {...register('title')}
+                  placeholder="About Me"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                About Content
-              </label>
-              <textarea
-                rows={6}
-                {...register('content', { required: 'Content is required' })}
-                className="input-glass resize-none"
-                placeholder="Write about yourself, your journey, passions, and what drives you..."
-              />
-              {errors.content && (
-                <p className="mt-2 text-sm text-red-400">{errors.content.message}</p>
-              )}
-              <p className="text-xs text-gray-500 mt-2">
-                Tip: Use double line breaks (press Enter twice) to create paragraphs.
-              </p>
+              <div className="space-y-2">
+                <Label>About Content</Label>
+                <Textarea
+                  rows={6}
+                  {...register('content', { required: 'Content is required' })}
+                  placeholder="Write about yourself, your journey, passions, and what drives you..."
+                />
+                {errors.content && (
+                  <p className="text-sm text-destructive">{errors.content.message}</p>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Tip: Use double line breaks (press Enter twice) to create paragraphs.
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Stats */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Statistics</h2>
-          <p className="text-sm text-gray-400 mb-6">
-            These numbers will be displayed in the About section cards.
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Years Experience
-              </label>
-              <input
-                type="number"
-                min="0"
-                {...register('yearsExperience')}
-                className="input-glass"
-              />
-            </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Statistics</h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              These numbers will be displayed in the About section cards.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="space-y-2">
+                <Label>Years Experience</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  {...register('yearsExperience')}
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Projects Completed
-              </label>
-              <input
-                type="number"
-                min="0"
-                {...register('projectsCompleted')}
-                className="input-glass"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label>Projects Completed</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  {...register('projectsCompleted')}
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Happy Clients
-              </label>
-              <input
-                type="number"
-                min="0"
-                {...register('happyClients')}
-                className="input-glass"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label>Happy Clients</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  {...register('happyClients')}
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Technologies
-              </label>
-              <input
-                type="number"
-                min="0"
-                {...register('technologies')}
-                className="input-glass"
-              />
+              <div className="space-y-2">
+                <Label>Technologies</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  {...register('technologies')}
+                />
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <button
+          <Button
             type="submit"
+            variant="gradient"
             disabled={isLoading}
-            className="btn-primary disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <>
@@ -264,7 +256,7 @@ export default function AboutPage() {
                 Save Changes
               </>
             )}
-          </button>
+          </Button>
         </div>
       </motion.form>
     </div>

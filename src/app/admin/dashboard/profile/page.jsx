@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Save, Upload, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -90,11 +95,11 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold">Profile</h1>
-        <p className="text-gray-400 mt-1">Manage your personal information</p>
+        <h1 className="text-2xl sm:text-3xl font-bold">Profile</h1>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">Manage your personal information</p>
       </div>
 
       <motion.form
@@ -105,217 +110,182 @@ export default function ProfilePage() {
         className="space-y-8"
       >
         {/* Avatar Section */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Profile Picture</h2>
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-4xl overflow-hidden">
-                {avatarPreview ? (
-                  <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  '👨‍💻'
-                )}
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Profile Picture</h2>
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-4xl overflow-hidden">
+                  {avatarPreview ? (
+                    <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    '👨‍💻'
+                  )}
+                </div>
+                <label className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors">
+                  <Upload className="w-4 h-4" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    className="hidden"
+                  />
+                </label>
               </div>
-              <label className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors">
-                <Upload className="w-4 h-4" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="hidden"
-                />
-              </label>
+              <div>
+                <p className="font-medium">Upload a new photo</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  JPG, PNG or GIF. Max size 2MB.
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="font-medium">Upload a new photo</p>
-              <p className="text-sm text-gray-400 mt-1">
-                JPG, PNG or GIF. Max size 2MB.
-              </p>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Basic Info */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Basic Information</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Full Name
-              </label>
-              <input
-                type="text"
-                {...register('name', { required: 'Name is required' })}
-                className="input-glass"
-              />
-              {errors.name && (
-                <p className="mt-2 text-sm text-red-400">{errors.name.message}</p>
-              )}
-            </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Basic Information</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label>Full Name</Label>
+                <Input
+                  {...register('name', { required: 'Name is required' })}
+                />
+                {errors.name && (
+                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                )}
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Job Title
-              </label>
-              <input
-                type="text"
-                {...register('title', { required: 'Title is required' })}
-                className="input-glass"
-              />
-              {errors.title && (
-                <p className="mt-2 text-sm text-red-400">{errors.title.message}</p>
-              )}
-            </div>
+              <div className="space-y-2">
+                <Label>Job Title</Label>
+                <Input
+                  {...register('title', { required: 'Title is required' })}
+                />
+                {errors.title && (
+                  <p className="text-sm text-destructive">{errors.title.message}</p>
+                )}
+              </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Subtitle / Roles (comma separated)
-              </label>
-              <input
-                type="text"
-                {...register('subtitle')}
-                className="input-glass"
-                placeholder="React Developer, Next.js Developer, ..."
-              />
-            </div>
+              <div className="md:col-span-2 space-y-2">
+                <Label>Subtitle / Roles (comma separated)</Label>
+                <Input
+                  {...register('subtitle')}
+                  placeholder="React Developer, Next.js Developer, ..."
+                />
+              </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Description
-              </label>
-              <textarea
-                rows={4}
-                {...register('description', { required: 'Description is required' })}
-                className="input-glass resize-none"
-              />
-              {errors.description && (
-                <p className="mt-2 text-sm text-red-400">{errors.description.message}</p>
-              )}
+              <div className="md:col-span-2 space-y-2">
+                <Label>Description</Label>
+                <Textarea
+                  rows={4}
+                  {...register('description', { required: 'Description is required' })}
+                />
+                {errors.description && (
+                  <p className="text-sm text-destructive">{errors.description.message}</p>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Contact Info */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Contact Information</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                {...register('email', { required: 'Email is required' })}
-                className="input-glass"
-              />
-              {errors.email && (
-                <p className="mt-2 text-sm text-red-400">{errors.email.message}</p>
-              )}
-            </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Contact Information</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  {...register('email', { required: 'Email is required' })}
+                />
+                {errors.email && (
+                  <p className="text-sm text-destructive">{errors.email.message}</p>
+                )}
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Phone
-              </label>
-              <input
-                type="text"
-                {...register('phone')}
-                className="input-glass"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label>Phone</Label>
+                <Input {...register('phone')} />
+              </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Location
-              </label>
-              <input
-                type="text"
-                {...register('location')}
-                className="input-glass"
-              />
+              <div className="md:col-span-2 space-y-2">
+                <Label>Location</Label>
+                <Input {...register('location')} />
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Social Links */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Social Links</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                GitHub URL
-              </label>
-              <input
-                type="url"
-                {...register('github')}
-                className="input-glass"
-                placeholder="https://github.com/username"
-              />
-            </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Social Links</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label>GitHub URL</Label>
+                <Input
+                  type="url"
+                  {...register('github')}
+                  placeholder="https://github.com/username"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                LinkedIn URL
-              </label>
-              <input
-                type="url"
-                {...register('linkedin')}
-                className="input-glass"
-                placeholder="https://linkedin.com/in/username"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label>LinkedIn URL</Label>
+                <Input
+                  type="url"
+                  {...register('linkedin')}
+                  placeholder="https://linkedin.com/in/username"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Twitter URL
-              </label>
-              <input
-                type="url"
-                {...register('twitter')}
-                className="input-glass"
-                placeholder="https://twitter.com/username"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label>Twitter URL</Label>
+                <Input
+                  type="url"
+                  {...register('twitter')}
+                  placeholder="https://twitter.com/username"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Website URL
-              </label>
-              <input
-                type="url"
-                {...register('website')}
-                className="input-glass"
-                placeholder="https://yourwebsite.com"
-              />
+              <div className="space-y-2">
+                <Label>Website URL</Label>
+                <Input
+                  type="url"
+                  {...register('website')}
+                  placeholder="https://yourwebsite.com"
+                />
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Resume */}
-        <div className="glass-card">
-          <h2 className="text-xl font-bold mb-6">Resume</h2>
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Resume URL (PDF link)
-            </label>
-            <input
-              type="url"
-              {...register('resumeUrl')}
-              className="input-glass"
-              placeholder="https://drive.google.com/file/d/.../view or direct PDF link"
-            />
-            <p className="mt-2 text-sm text-gray-500">
-              Upload your resume to Google Drive, Dropbox, or any file hosting and paste the link here.
-            </p>
-          </div>
-        </div>
+        <Card>
+          <CardContent className="pt-6">
+            <h2 className="text-xl font-bold mb-6">Resume</h2>
+            <div className="space-y-2">
+              <Label>Resume URL (PDF link)</Label>
+              <Input
+                type="url"
+                {...register('resumeUrl')}
+                placeholder="https://drive.google.com/file/d/.../view or direct PDF link"
+              />
+              <p className="text-sm text-muted-foreground">
+                Upload your resume to Google Drive, Dropbox, or any file hosting and paste the link here.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <button
+          <Button
             type="submit"
+            variant="gradient"
             disabled={isLoading}
-            className="btn-primary disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <>
@@ -328,7 +298,7 @@ export default function ProfilePage() {
                 Save Changes
               </>
             )}
-          </button>
+          </Button>
         </div>
       </motion.form>
     </div>

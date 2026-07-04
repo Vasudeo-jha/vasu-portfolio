@@ -13,12 +13,13 @@ export const profileData = {
   email: "contact@vasujha.dev",
   phone: "+91 9876543210",
   location: "New Delhi, India",
-  avatarUrl: "/images/avatar.jpg",
+  avatarUrl: "/profile.png",
   resumeUrl: "/vasu-resume.pdf"
 };
 
 export const aboutData = {
   title: "About Me",
+  imageUrl: "/about.png",
   content: `I'm a passionate Frontend Developer with a strong foundation in modern web technologies. I specialize in building beautiful, performant, and user-friendly web applications that deliver exceptional user experiences.
 
 With a keen eye for design and a deep understanding of frontend frameworks, I transform complex requirements into elegant, scalable solutions. My journey in web development started with a curiosity about how things work on the internet, and it has evolved into a fulfilling career where I get to create impactful digital experiences every day.
@@ -146,7 +147,7 @@ export const projectsData = [
 export const socialLinksData = [
   { platform: "GitHub", url: "https://github.com/Vasudeo-jha", iconName: "Github" },
   { platform: "LinkedIn", url: "https://www.linkedin.com/in/vasu-deo-jha/", iconName: "Linkedin" },
-  { platform: "Twitter", url: "https://twitter.com/vasujha", iconName: "Twitter" },
+  { platform: "Twitter", url: "https://x.com/JhaVasudeo", iconName: "Twitter" },
   { platform: "Email", url: "mailto:vasudeojha503@gmail.com", iconName: "Mail" }
 ];
 

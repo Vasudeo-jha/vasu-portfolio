@@ -106,7 +106,7 @@ export default function AboutSection({ profile, about }) {
                 {/* Quick Info */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-gray-300">
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-sm sm:text-base">
                       📍
                     </div>
                     <div>
@@ -115,16 +115,16 @@ export default function AboutSection({ profile, about }) {
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0 text-sm sm:text-base">
                       🎓
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Education</p>
-                      <p className="font-medium">B.Tech in Computer Science</p>
+                      <p className="font-medium">BCA (Bachelor of Computer Applications)</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0 text-sm sm:text-base">
                       💼
                     </div>
                     <div>

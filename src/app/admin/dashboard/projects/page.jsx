@@ -6,6 +6,20 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Plus, Trash2, Edit2, ExternalLink, Star, Loader2, X } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/Icons';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -139,17 +153,17 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Projects</h1>
-          <p className="text-gray-400 mt-1">Manage your portfolio projects</p>
+          <h1 className="text-2xl sm:text-3xl font-bold">Projects</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mt-1">Manage your portfolio projects</p>
         </div>
-        <button onClick={openAddModal} className="btn-primary">
+        <Button onClick={openAddModal} variant="gradient" className="w-fit">
           <Plus className="w-5 h-5" />
           Add Project
-        </button>
+        </Button>
       </div>
 
       {/* Projects Grid */}
@@ -160,242 +174,210 @@ export default function ProjectsPage() {
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         {projects.map((project) => (
-          <div key={project.id} className="glass-card-np overflow-hidden group">
+          <Card key={project.id} className="overflow-hidden group p-0">
             {/* Image */}
             <div className="relative h-40 bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center">
               <span className="text-5xl opacity-50">🖼️</span>
               {project.featured && (
                 <div className="absolute top-3 left-3">
-                  <span className="flex items-center gap-1 px-2! py-1! rounded-full text-xs font-medium bg-yellow-500 text-black">
+                  <Badge className="bg-yellow-500 text-black hover:bg-yellow-500">
                     <Star className="w-3 h-3 fill-current" />
                     Featured
-                  </span>
+                  </Badge>
                 </div>
               )}
             </div>
 
             {/* Content */}
-            <div className="p-5!">
+            <CardContent className="p-5">
               <h3 className="font-bold text-lg mb-2">{project.title}</h3>
-              <p className="text-sm text-gray-400 line-clamp-2 mb-4">
+              <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
                 {project.shortDescription || project.description}
               </p>
 
               {/* Tech Stack */}
               <div className="flex flex-wrap gap-1 mb-4">
                 {(project.techStack || []).slice(0, 3).map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2! py-0.5! rounded text-xs bg-white/5 text-gray-300"
-                  >
+                  <Badge key={tech} variant="glass" className="text-xs">
                     {tech}
-                  </span>
+                  </Badge>
                 ))}
                 {(project.techStack || []).length > 3 && (
-                  <span className="px-2! py-0.5! rounded text-xs bg-white/5 text-gray-400">
+                  <Badge variant="outline" className="text-xs">
                     +{(project.techStack || []).length - 3}
-                  </span>
+                  </Badge>
                 )}
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-2 pt-4! border-t border-white/5">
-                <button
+              <div className="flex items-center gap-2 pt-4 border-t border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => openEditModal(project)}
-                  className="flex-1 flex items-center justify-center gap-2 py-2! rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors"
+                  className="flex-1"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
                   onClick={() => handleDelete(project.id)}
-                  className="p-2! rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                  className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                 >
                   <Trash2 className="w-4 h-4" />
-                </button>
+                </Button>
                 {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2! rounded-lg text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    asChild
+                    className="text-muted-foreground hover:text-primary hover:bg-primary/10"
                   >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </Button>
                 )}
                 {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2! rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    asChild
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted"
                   >
-                    <GithubIcon className="w-4 h-4" />
-                  </a>
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <GithubIcon className="w-4 h-4" />
+                    </a>
+                  </Button>
                 )}
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         ))}
         {projects.length === 0 && (
-          <div className="col-span-full text-center py-12! text-gray-400">
+          <div className="col-span-full text-center py-12 text-muted-foreground">
             No projects added yet. Click "Add Project" to get started.
           </div>
         )}
       </motion.div>
 
       {/* Add/Edit Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4! overflow-y-auto">
-          <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="relative glass-card w-full max-w-2xl my-8"
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold">
-                {editingProject ? 'Edit Project' : 'Add New Project'}
-              </h2>
-              <button
-                onClick={() => setShowModal(false)}
-                className="p-2! rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+      <Dialog open={showModal} onOpenChange={setShowModal} >
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>
+              {editingProject ? 'Edit Project' : 'Add New Project'}
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Project Title</Label>
+                <Input
+                  {...register('title', { required: 'Title is required' })}
+                  placeholder="Portfolio CMS"
+                />
+                {errors.title && (
+                  <p className="text-sm text-destructive">{errors.title.message}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label>Slug (URL)</Label>
+                <Input
+                  {...register('slug', { required: 'Slug is required' })}
+                  placeholder="portfolio-cms"
+                />
+                {errors.slug && (
+                  <p className="text-sm text-destructive">{errors.slug.message}</p>
+                )}
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Project Title
-                  </label>
-                  <input
-                    type="text"
-                    {...register('title', { required: 'Title is required' })}
-                    className="input-glass"
-                    placeholder="Portfolio CMS"
-                  />
-                  {errors.title && (
-                    <p className="mt-2 text-sm text-red-400">{errors.title.message}</p>
-                  )}
-                </div>
+            <div className="space-y-2">
+              <Label>Description</Label>
+              <Textarea
+                rows={3}
+                {...register('shortDescription', { required: 'Description is required' })}
+                placeholder="A brief description of the project..."
+              />
+              {errors.shortDescription && (
+                <p className="text-sm text-destructive">{errors.shortDescription.message}</p>
+              )}
+            </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Slug (URL)
-                  </label>
-                  <input
-                    type="text"
-                    {...register('slug', { required: 'Slug is required' })}
-                    className="input-glass"
-                    placeholder="portfolio-cms"
-                  />
-                  {errors.slug && (
-                    <p className="mt-2 text-sm text-red-400">{errors.slug.message}</p>
-                  )}
-                </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Live URL</Label>
+                <Input
+                  type="url"
+                  {...register('liveUrl')}
+                  placeholder="https://example.com"
+                />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Description
-                </label>
-                <textarea
-                  rows={3}
-                  {...register('shortDescription', { required: 'Description is required' })}
-                  className="input-glass resize-none"
-                  placeholder="A brief description of the project..."
+              <div className="space-y-2">
+                <Label>GitHub URL</Label>
+                <Input
+                  type="url"
+                  {...register('githubUrl')}
+                  placeholder="https://github.com/..."
                 />
-                {errors.shortDescription && (
-                  <p className="mt-2 text-sm text-red-400">{errors.shortDescription.message}</p>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Tech Stack (comma separated)</Label>
+              <Input
+                {...register('techStack', { required: 'Tech stack is required' })}
+                placeholder="Next.js, React, Tailwind CSS, PostgreSQL"
+              />
+              {errors.techStack && (
+                <p className="text-sm text-destructive">{errors.techStack.message}</p>
+              )}
+            </div>
+
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                id="featured"
+                {...register('featured')}
+                className="w-5 h-5 rounded bg-muted border-border text-primary focus:ring-primary"
+              />
+              <Label htmlFor="featured" className="cursor-pointer">
+                Mark as Featured Project
+              </Label>
+            </div>
+
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="glass"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                type="submit" 
+                variant="gradient"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  editingProject ? 'Update Project' : 'Add Project'
                 )}
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Live URL
-                  </label>
-                  <input
-                    type="url"
-                    {...register('liveUrl')}
-                    className="input-glass"
-                    placeholder="https://example.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    GitHub URL
-                  </label>
-                  <input
-                    type="url"
-                    {...register('githubUrl')}
-                    className="input-glass"
-                    placeholder="https://github.com/..."
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Tech Stack (comma separated)
-                </label>
-                <input
-                  type="text"
-                  {...register('techStack', { required: 'Tech stack is required' })}
-                  className="input-glass"
-                  placeholder="Next.js, React, Tailwind CSS, PostgreSQL"
-                />
-                {errors.techStack && (
-                  <p className="mt-2 text-sm text-red-400">{errors.techStack.message}</p>
-                )}
-              </div>
-
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  {...register('featured')}
-                  className="w-5 h-5 rounded bg-white/5 border-white/10 text-blue-500 focus:ring-blue-500"
-                />
-                <label htmlFor="featured" className="text-sm font-medium text-gray-300">
-                  Mark as Featured Project
-                </label>
-              </div>
-
-              <div className="flex gap-3 pt-4!">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="flex-1 btn-secondary justify-center"
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit" 
-                  disabled={isLoading}
-                  className="flex-1 btn-primary justify-center disabled:opacity-70"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    editingProject ? 'Update Project' : 'Add Project'
-                  )}
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

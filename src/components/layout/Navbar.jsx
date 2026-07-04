@@ -42,10 +42,13 @@ export default function Navbar() {
 
   const scrollToSection = (href) => {
     setIsOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Small delay to allow menu to close first
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -76,8 +79,9 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <button
                 key={link.name}
+                type="button"
                 onClick={() => scrollToSection(link.href)}
-                className={`px-4! py-2.5! rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`px-4! py-2.5! rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
                   activeSection === link.href.replace('#', '')
                     ? 'text-blue-500 bg-blue-500/10'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)]'
@@ -137,15 +141,16 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-t border-[var(--glass-border)]"
           >
-            <div className="container mx-auto px-6! py-6! space-y-2 flex gap-2">
+            <div className="container mx-auto px-6! py-6! flex flex-col gap-2">
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.name}
+                  type="button"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
                   onClick={() => scrollToSection(link.href)}
-                  className={`w-full text-left px-4! py-3! rounded-xl text-base font-medium transition-all duration-300 ${
+                  className={`w-full text-left px-4! py-3! rounded-xl text-base font-medium transition-all duration-300 cursor-pointer active:scale-95 ${
                     activeSection === link.href.replace('#', '')
                       ? 'text-blue-500 bg-blue-500/10'
                       : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)]'
@@ -154,25 +159,6 @@ export default function Navbar() {
                   {link.name}
                 </motion.button>
               ))}
-              
-              <div className="pt-4! flex gap-3">
-                <Link
-                  href="/resume.pdf"
-                  target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 px-4! py-3! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] text-sm font-medium transition-all duration-300 text-[var(--text-primary)]"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Download className="w-4 h-4" />
-                  Resume
-                </Link>
-                <button
-                  onClick={() => scrollToSection('#contact')}
-                  className="flex-1 btn-primary py-3! text-sm justify-center"
-                >
-                  <Mail className="w-4 h-4" />
-                  Hire Me
-                </button>
-              </div>
             </div>
           </motion.div>
         )}

@@ -9,11 +9,12 @@ import Image from 'next/image';
 import { profileData as fallbackProfile } from '@/lib/data';
 
 const floatingTechs = [
-  { name: 'React', color: '#61DAFB', position: { top: '15%', right: '10%' }, delay: 0 },
-  { name: 'Next.js', color: '#ffffff', position: { top: '25%', right: '25%' }, delay: 0.5 },
-  { name: 'JavaScript', color: '#F7DF1E', position: { bottom: '30%', right: '5%' }, delay: 1 },
-  { name: 'Tailwind', color: '#38BDF8', position: { bottom: '20%', right: '20%' }, delay: 1.5 },
-  { name: 'PostgreSQL', color: '#336791', position: { top: '45%', right: '0%' }, delay: 2 },
+  { name: 'PostgreSQL', color: '#336791', position: { top: '10%', right: '12%' }, delay: 0 },
+  { name: 'Next.js', color: '#ffffff', position: { top: '22%', right: '28%' }, delay: 0.5 },
+  { name: 'Node.js', color: '#339933', position: { top: '35%', right: '5%' }, delay: 1 },
+  { name: 'JavaScript', color: '#F7DF1E', position: { bottom: '25%', right: '8%' }, delay: 1.5 },
+  { name: 'Tailwind', color: '#38BDF8', position: { bottom: '12%', right: '22%' }, delay: 2 },
+  { name: 'React', color: '#61DAFB', position: { bottom: '35%', right: '25%' }, delay: 2.5 },
 ];
 
 export default function HeroSection({ profile }) {
@@ -158,21 +159,21 @@ export default function HeroSection({ profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4 mb-10"
+              className="flex flex-nowrap gap-2 sm:gap-4 mb-10"
             >
-              <Link href="#projects" className="btn-primary">
-                <Eye className="w-5 h-5" />
-                View Projects
+              <Link href="#projects" className="btn-primary !px-4 !py-2.5 sm:!px-8 sm:!py-3.5 text-sm sm:text-[15px]">
+                <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
+                Projects
               </Link>
               {(data.resumeUrl || true) && (
                 <a 
                   href={data.resumeUrl || '/vasu-resume.pdf'} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="btn-secondary"
+                  className="btn-secondary !px-4 !py-2.5 sm:!px-8 sm:!py-3.5 text-sm sm:text-[15px]"
                 >
-                  <Download className="w-5 h-5" />
-                  Download Resume
+                  <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                  Resume
                 </a>
               )}
             </motion.div>
@@ -252,7 +253,7 @@ export default function HeroSection({ profile }) {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + tech.delay * 0.2, type: 'spring' }}
-                  className="absolute glass-card-sm px-3! py-2! flex items-center gap-2"
+                  className="absolute glass-card-sm px-2! py-1.5! sm:px-3! sm:py-2! flex items-center gap-1.5 sm:gap-2"
                   style={{
                     ...tech.position,
                     animation: `float ${4 + index * 0.5}s ease-in-out infinite`,
@@ -260,10 +261,10 @@ export default function HeroSection({ profile }) {
                   }}
                 >
                   <div
-                    className="w-3 h-3 rounded-full"
+                    className="w-2 h-2 sm:w-3 sm:h-3 rounded-full"
                     style={{ backgroundColor: tech.color }}
                   />
-                  <span className="text-sm font-medium whitespace-nowrap">{tech.name}</span>
+                  <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{tech.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -272,21 +273,22 @@ export default function HeroSection({ profile }) {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      <motion.a
+        href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-gray-400"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors"
         >
           <span className="text-sm">Scroll Down</span>
           <ArrowDown className="w-5 h-5" />
         </motion.div>
-      </motion.div>
+      </motion.a>
 
       <style jsx>{`
         @keyframes animate-wave {

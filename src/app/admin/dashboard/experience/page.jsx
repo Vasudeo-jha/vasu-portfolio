@@ -15,6 +15,12 @@ import {
   MapPin,
   Calendar 
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
 
 export default function ExperiencePage() {
   const [experiences, setExperiences] = useState([]);
@@ -144,21 +150,22 @@ export default function ExperiencePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Experience</h1>
-          <p className="text-gray-400 mt-1">Manage your work experience</p>
+          <h1 className="text-2xl sm:text-3xl font-bold">Experience</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mt-1">Manage your work experience</p>
         </div>
         {!showForm && (
-          <button
+          <Button
             onClick={() => setShowForm(true)}
-            className="btn-primary"
+            variant="gradient"
+            className="w-fit"
           >
             <Plus className="w-5 h-5" />
             Add Experience
-          </button>
+          </Button>
         )}
       </div>
 
@@ -169,185 +176,160 @@ export default function ExperiencePage() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold">
-                {editingId ? 'Edit Experience' : 'Add New Experience'}
-              </h2>
-              <button
-                onClick={handleCancel}
-                className="p-2 rounded-xl hover:bg-white/10 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Company *
-                  </label>
-                  <input
-                    type="text"
-                    {...register('company', { required: 'Company is required' })}
-                    className="input-glass"
-                    placeholder="Google"
-                  />
-                  {errors.company && (
-                    <p className="mt-2 text-sm text-red-400">{errors.company.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Position *
-                  </label>
-                  <input
-                    type="text"
-                    {...register('position', { required: 'Position is required' })}
-                    className="input-glass"
-                    placeholder="Senior Frontend Developer"
-                  />
-                  {errors.position && (
-                    <p className="mt-2 text-sm text-red-400">{errors.position.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Employment Type
-                  </label>
-                  <select
-                    {...register('employmentType')}
-                    className="input-glass"
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold">
+                    {editingId ? 'Edit Experience' : 'Add New Experience'}
+                  </h2>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    onClick={handleCancel}
                   >
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Freelance">Freelance</option>
-                    <option value="Internship">Internship</option>
-                  </select>
+                    <X className="w-5 h-5" />
+                  </Button>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Location
-                  </label>
-                  <input
-                    type="text"
-                    {...register('location')}
-                    className="input-glass"
-                    placeholder="San Francisco, CA"
-                  />
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label>Company *</Label>
+                      <Input
+                        {...register('company', { required: 'Company is required' })}
+                        placeholder="Google"
+                      />
+                      {errors.company && (
+                        <p className="text-sm text-destructive">{errors.company.message}</p>
+                      )}
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Start Date *
-                  </label>
-                  <input
-                    type="date"
-                    {...register('startDate', { required: 'Start date is required' })}
-                    className="input-glass"
-                  />
-                  {errors.startDate && (
-                    <p className="mt-2 text-sm text-red-400">{errors.startDate.message}</p>
-                  )}
-                </div>
+                    <div className="space-y-2">
+                      <Label>Position *</Label>
+                      <Input
+                        {...register('position', { required: 'Position is required' })}
+                        placeholder="Senior Frontend Developer"
+                      />
+                      {errors.position && (
+                        <p className="text-sm text-destructive">{errors.position.message}</p>
+                      )}
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    {...register('endDate')}
-                    className="input-glass"
-                    disabled={isCurrent}
-                  />
-                </div>
+                    <div className="space-y-2">
+                      <Label>Employment Type</Label>
+                      <select
+                        {...register('employmentType')}
+                        className="flex h-11 w-full rounded-xl border border-border bg-[var(--glass-bg)] px-4 py-3 text-[15px] text-foreground transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                      >
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Internship">Internship</option>
+                      </select>
+                    </div>
 
-                <div className="md:col-span-2 flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    id="isCurrent"
-                    {...register('isCurrent')}
-                    className="w-5 h-5 rounded border-white/20 bg-white/5"
-                  />
-                  <label htmlFor="isCurrent" className="text-sm font-medium text-gray-300">
-                    I currently work here
-                  </label>
-                </div>
+                    <div className="space-y-2">
+                      <Label>Location</Label>
+                      <Input
+                        {...register('location')}
+                        placeholder="San Francisco, CA"
+                      />
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Company Logo URL
-                  </label>
-                  <input
-                    type="url"
-                    {...register('logoUrl')}
-                    className="input-glass"
-                    placeholder="https://example.com/logo.png"
-                  />
-                </div>
+                    <div className="space-y-2">
+                      <Label>Start Date *</Label>
+                      <Input
+                        type="date"
+                        {...register('startDate', { required: 'Start date is required' })}
+                      />
+                      {errors.startDate && (
+                        <p className="text-sm text-destructive">{errors.startDate.message}</p>
+                      )}
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Company Website URL
-                  </label>
-                  <input
-                    type="url"
-                    {...register('companyUrl')}
-                    className="input-glass"
-                    placeholder="https://company.com"
-                  />
-                </div>
+                    <div className="space-y-2">
+                      <Label>End Date</Label>
+                      <Input
+                        type="date"
+                        {...register('endDate')}
+                        disabled={isCurrent}
+                      />
+                    </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Description *
-                  </label>
-                  <textarea
-                    rows={4}
-                    {...register('description', { required: 'Description is required' })}
-                    className="input-glass resize-none"
-                    placeholder="Describe your responsibilities and achievements..."
-                  />
-                  {errors.description && (
-                    <p className="mt-2 text-sm text-red-400">{errors.description.message}</p>
-                  )}
-                </div>
-              </div>
+                    <div className="md:col-span-2 flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        id="isCurrent"
+                        {...register('isCurrent')}
+                        className="w-5 h-5 rounded border-border bg-muted"
+                      />
+                      <Label htmlFor="isCurrent" className="cursor-pointer">
+                        I currently work here
+                      </Label>
+                    </div>
 
-              <div className="flex justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="btn-secondary"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary disabled:opacity-70"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" />
-                      {editingId ? 'Update' : 'Add'} Experience
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
+                    <div className="space-y-2">
+                      <Label>Company Logo URL</Label>
+                      <Input
+                        type="url"
+                        {...register('logoUrl')}
+                        placeholder="https://example.com/logo.png"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Company Website URL</Label>
+                      <Input
+                        type="url"
+                        {...register('companyUrl')}
+                        placeholder="https://company.com"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2 space-y-2">
+                      <Label>Description *</Label>
+                      <Textarea
+                        rows={4}
+                        {...register('description', { required: 'Description is required' })}
+                        placeholder="Describe your responsibilities and achievements..."
+                      />
+                      {errors.description && (
+                        <p className="text-sm text-destructive">{errors.description.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-3">
+                    <Button
+                      type="button"
+                      variant="glass"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="gradient"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-5 h-5" />
+                          {editingId ? 'Update' : 'Add'} Experience
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
       </AnimatePresence>
@@ -355,13 +337,15 @@ export default function ExperiencePage() {
       {/* Experience List */}
       <div className="space-y-4">
         {experiences.length === 0 ? (
-          <div className="glass-card text-center py-12">
-            <Briefcase className="w-12 h-12 mx-auto text-gray-500 mb-4" />
-            <p className="text-gray-400">No experience added yet</p>
-            <p className="text-sm text-gray-500 mt-1">
-              Click "Add Experience" to add your work history
-            </p>
-          </div>
+          <Card>
+            <CardContent className="pt-12 pb-12 text-center">
+              <Briefcase className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+              <p className="text-muted-foreground">No experience added yet</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Click "Add Experience" to add your work history
+              </p>
+            </CardContent>
+          </Card>
         ) : (
           experiences.map((exp, index) => (
             <motion.div
@@ -369,65 +353,71 @@ export default function ExperiencePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="glass-card"
             >
-              <div className="flex items-start gap-4">
-                {/* Logo */}
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  {exp.logoUrl ? (
-                    <img src={exp.logoUrl} alt={exp.company} className="w-full h-full object-cover" />
-                  ) : (
-                    <Briefcase className="w-6 h-6 text-blue-400" />
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-semibold">{exp.position}</h3>
-                      <p className="text-blue-400">{exp.company}</p>
-                      <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-400">
-                        {exp.employmentType && (
-                          <span className="px-2 py-0.5 rounded-full bg-white/5 text-xs">
-                            {exp.employmentType}
-                          </span>
-                        )}
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {formatDate(exp.startDate)} - {exp.isCurrent ? 'Present' : formatDate(exp.endDate)}
-                        </span>
-                        {exp.location && (
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {exp.location}
-                          </span>
-                        )}
-                      </div>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    {/* Logo */}
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {exp.logoUrl ? (
+                        <img src={exp.logoUrl} alt={exp.company} className="w-full h-full object-cover" />
+                      ) : (
+                        <Briefcase className="w-6 h-6 text-primary" />
+                      )}
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex gap-2 flex-shrink-0">
-                      <button
-                        onClick={() => handleEdit(exp)}
-                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(exp.id)}
-                        className="p-2 rounded-xl bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h3 className="text-lg font-semibold">{exp.position}</h3>
+                          <p className="text-primary">{exp.company}</p>
+                          <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-muted-foreground">
+                            {exp.employmentType && (
+                              <Badge variant="glass" className="text-xs">
+                                {exp.employmentType}
+                              </Badge>
+                            )}
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-4 h-4" />
+                              {formatDate(exp.startDate)} - {exp.isCurrent ? 'Present' : formatDate(exp.endDate)}
+                            </span>
+                            {exp.location && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="w-4 h-4" />
+                                {exp.location}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex gap-2 flex-shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            onClick={() => handleEdit(exp)}
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            onClick={() => handleDelete(exp.id)}
+                            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <p className="text-muted-foreground mt-3 text-sm line-clamp-2">
+                        {exp.description}
+                      </p>
                     </div>
                   </div>
-
-                  <p className="text-gray-400 mt-3 text-sm line-clamp-2">
-                    {exp.description}
-                  </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))
         )}

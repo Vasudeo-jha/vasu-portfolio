@@ -29,11 +29,11 @@ function StatCard({ icon: Icon, value, label, delay, isInView }) {
       transition={{ duration: 0.5, delay }}
       className="glass-card-sm text-center group card-hover"
     >
-      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-7 h-7 text-blue-400" />
+      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+        <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-400" />
       </div>
-      <p className="text-3xl font-bold gradient-text mb-2">{value.toLocaleString()}</p>
-      <p className="text-gray-400 text-sm">{label}</p>
+      <p className="text-2xl sm:text-3xl font-bold gradient-text mb-1 sm:mb-2">{value.toLocaleString()}</p>
+      <p className="text-gray-400 text-xs sm:text-sm">{label}</p>
     </motion.div>
   );
 }
@@ -44,10 +44,10 @@ function LanguageBar({ language, index, isInView }) {
       initial={{ opacity: 0, x: -20 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-      className="flex items-center gap-4"
+      className="flex items-center gap-2 sm:gap-4"
     >
-      <div className="w-24 text-sm text-gray-300 font-medium">{language.name}</div>
-      <div className="flex-1 h-3 bg-white/5 rounded-full overflow-hidden">
+      <div className="w-20 sm:w-24 text-xs sm:text-sm text-gray-300 font-medium truncate">{language.name}</div>
+      <div className="flex-1 h-2.5 sm:h-3 bg-white/5 rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           animate={isInView ? { width: `${language.percentage}%` } : { width: 0 }}
@@ -56,7 +56,7 @@ function LanguageBar({ language, index, isInView }) {
           style={{ backgroundColor: language.color }}
         />
       </div>
-      <div className="w-12 text-right text-sm text-gray-400">{language.percentage}%</div>
+      <div className="w-10 sm:w-12 text-right text-xs sm:text-sm text-gray-400">{language.percentage}%</div>
     </motion.div>
   );
 }
@@ -73,7 +73,7 @@ export default function GitHubSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="section relative overflow-hidden bg-[var(--bg-secondary)]">
+    <section id="github" ref={sectionRef} className="section relative overflow-hidden bg-[var(--bg-secondary)]">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px]" />
@@ -119,26 +119,26 @@ export default function GitHubSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="glass-card"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
-                <Flame className="w-7 h-7 text-orange-400" />
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
+                <Flame className="w-6 h-6 sm:w-7 sm:h-7 text-orange-400" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold">Coding Streak</h3>
-                <p className="text-gray-400 text-sm">Consecutive days of commits</p>
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-xl font-bold">Coding Streak</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">Consecutive days of commits</p>
               </div>
             </div>
             
-            <div className="flex items-end gap-4">
-              <span className="text-6xl font-bold gradient-text">{githubStats.streak}</span>
-              <span className="text-2xl text-gray-400 mb-2">days</span>
+            <div className="flex items-end gap-2 sm:gap-4">
+              <span className="text-4xl sm:text-6xl font-bold gradient-text">{githubStats.streak}</span>
+              <span className="text-xl sm:text-2xl text-gray-400 mb-1 sm:mb-2">days</span>
             </div>
 
-            <div className="mt-6 flex gap-1">
+            <div className="mt-4 sm:mt-6 flex flex-wrap gap-1">
               {Array.from({ length: 30 }).map((_, i) => (
                 <div
                   key={i}
-                  className={`w-3 h-3 rounded-sm ${
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm ${
                     i < githubStats.streak % 30
                       ? 'bg-gradient-to-br from-green-500 to-green-600'
                       : 'bg-white/5'
@@ -155,17 +155,17 @@ export default function GitHubSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="glass-card"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                <Code2 className="w-7 h-7 text-blue-400" />
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+                <Code2 className="w-6 h-6 sm:w-7 sm:h-7 text-blue-400" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold">Top Languages</h3>
-                <p className="text-gray-400 text-sm">Most used programming languages</p>
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-xl font-bold">Top Languages</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">Most used programming languages</p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {githubStats.topLanguages.map((lang, index) => (
                 <LanguageBar
                   key={lang.name}

@@ -19,6 +19,10 @@ import {
   X,
   Bell,
   Search,
+  PanelLeftClose,
+  PanelLeft,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -39,6 +43,31 @@ export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    // Set sidebar open by default on large screens only
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      }
+    };
+    handleResize(); // Check on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    // Get initial theme from document
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(currentTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
 
   useEffect(() => {
     checkAuth();
@@ -79,8 +108,8 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar Overlay */}
+    <div className="h-screen flex overflow-hidden">
+      {/* Sidebar Overlay - only on mobile */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -90,20 +119,20 @@ export default function AdminLayout({ children }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-[var(--bg-secondary)] border-r border-white/5 transform transition-transform duration-300 lg:transform-none ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed lg:relative inset-y-0 left-0 z-50 w-72 bg-[var(--bg-secondary)] border-r border-[var(--glass-border)] transform transition-all duration-300 flex-shrink-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:w-0 lg:overflow-hidden'
         }`}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full w-72">
           {/* Logo */}
-          <div className="p-6! border-b border-white/5">
+          <div className="p-6! border-b border-[var(--glass-border)]">
             <Link href="/admin/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-lg shadow-lg shadow-purple-500/25">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-purple-500/25">
                 VJ
               </div>
               <div>
-                <h1 className="font-semibold">Portfolio CMS</h1>
-                <p className="text-xs text-gray-500">Admin Dashboard</p>
+                <h1 className="font-semibold text-[var(--text-primary)]">Portfolio CMS</h1>
+                <p className="text-xs text-[var(--text-secondary)]">Admin Dashboard</p>
               </div>
             </Link>
           </div>
@@ -114,7 +143,11 @@ export default function AdminLayout({ children }) {
               <Link
                 key={link.name}
                 href={link.href}
-                className="flex items-center gap-3 px-4! py-3! rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+                onClick={() => {
+                  // Only close sidebar on mobile
+                  if (window.innerWidth < 1024) setSidebarOpen(false);
+                }}
+                className="flex items-center gap-3 px-4! py-3! rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)] transition-all duration-300"
               >
                 <link.icon className="w-5 h-5" />
                 <span className="font-medium">{link.name}</span>
@@ -123,10 +156,10 @@ export default function AdminLayout({ children }) {
           </nav>
 
           {/* Logout */}
-          <div className="p-4! border-t border-white/5">
+          <div className="p-4! border-t border-[var(--glass-border)]">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-4! py-3! rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300"
+              className="flex items-center gap-3 w-full px-4! py-3! rounded-xl text-[var(--text-secondary)] hover:text-red-400 hover:bg-red-500/10 transition-all duration-300"
             >
               <LogOut className="w-5 h-5" />
               <span className="font-medium">Logout</span>
@@ -136,22 +169,33 @@ export default function AdminLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col h-screen min-h-0 overflow-hidden">
         {/* Header */}
-        <header className="sticky top-0 z-30 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-white/5">
+        <header className="z-30 bg-[var(--bg-secondary)]/90 backdrop-blur-xl border-b border-[var(--glass-border)] shadow-sm flex-shrink-0">
           <div className="flex items-center justify-between px-6! py-4!">
-            {/* Mobile Menu Toggle */}
+            {/* Menu Toggle */}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden p-2! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="p-2! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300"
+              title={sidebarOpen ? "Close menu" : "Open menu"}
             >
-              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {sidebarOpen ? (
+                <>
+                  <X className="w-5 h-5 lg:hidden" />
+                  <PanelLeftClose className="w-5 h-5 hidden lg:block" />
+                </>
+              ) : (
+                <>
+                  <Menu className="w-5 h-5 lg:hidden" />
+                  <PanelLeft className="w-5 h-5 hidden lg:block" />
+                </>
+              )}
             </button>
 
             {/* Search */}
             <div className="hidden md:flex items-center flex-1 max-w-md mx-4">
               <div className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-secondary)]" />
                 <input
                   type="text"
                   placeholder="Search..."
@@ -161,19 +205,28 @@ export default function AdminLayout({ children }) {
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-4">
-              <button className="relative p-2.5! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300"
+                title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+
+              <button className="relative p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
               </button>
 
-              <div className="flex items-center gap-3 pl-4! border-l border-white/10">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-sm">
+              <div className="flex items-center gap-3 pl-4! border-l border-[var(--glass-border)]">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-sm text-white">
                   {user?.email?.charAt(0).toUpperCase() || 'A'}
                 </div>
                 <div className="hidden sm:block">
                   <p className="text-sm font-medium">{user?.email || 'Admin'}</p>
-                  <p className="text-xs text-gray-500 capitalize">{user?.role || 'Administrator'}</p>
+                  <p className="text-xs text-[var(--text-secondary)] capitalize">{user?.role || 'Administrator'}</p>
                 </div>
               </div>
             </div>
@@ -181,7 +234,7 @@ export default function AdminLayout({ children }) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-6!">
+        <main className="flex-1 min-h-0 overflow-y-auto p-4! sm:p-6! pb-8! sm:pb-10!">
           {children}
         </main>
       </div>

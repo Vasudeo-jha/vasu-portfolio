@@ -83,9 +83,9 @@ export default function ContactSection({ profile }) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="glass-card">
-              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Send a Message</h3>
               
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -197,22 +197,22 @@ export default function ContactSection({ profile }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className="glass-card-sm flex items-center gap-4 group card-hover"
+                  className="glass-card-sm flex items-center gap-3 sm:gap-4 group card-hover"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <info.icon className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <info.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">{info.label}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-gray-500 mb-1">{info.label}</p>
                     {info.href ? (
                       <a
                         href={info.href}
-                        className="text-lg font-medium hover:text-blue-400 transition-colors"
+                        className="text-sm sm:text-lg font-medium hover:text-blue-400 transition-colors break-all"
                       >
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-lg font-medium">{info.value}</p>
+                      <p className="text-sm sm:text-lg font-medium break-words">{info.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -226,18 +226,18 @@ export default function ContactSection({ profile }) {
               transition={{ duration: 0.5, delay: 0.8 }}
               className="glass-card"
             >
-              <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
-              <p className="text-gray-400 mb-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Connect With Me</h3>
+              <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Follow me on social media to stay updated with my latest projects and insights.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {socialLinksData.map((social) => (
                   <a
                     key={social.platform}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4! py-2! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-medium transition-all duration-300 hover:-translate-y-1"
+                    className="px-3! sm:px-4! py-2! rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-xs sm:text-sm font-medium transition-all duration-300 hover:-translate-y-1"
                   >
                     {social.platform}
                   </a>
@@ -250,13 +250,13 @@ export default function ContactSection({ profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.9 }}
-              className="glass-card-sm p-6! border-l-4 border-green-500"
+              className="glass-card-sm p-4! sm:p-6! border-l-4 border-green-500"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                <p className="font-semibold text-green-500">Available for Work</p>
+              <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500 animate-pulse" />
+                <p className="font-semibold text-green-500 text-sm sm:text-base">Available for Work</p>
               </div>
-              <p className="text-[var(--text-secondary)] text-sm">
+              <p className="text-[var(--text-secondary)] text-xs sm:text-sm">
                 I&apos;m currently open to new opportunities. Let&apos;s discuss how I can help with your project!
               </p>
             </motion.div>
