@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -23,6 +23,7 @@ import {
   PanelLeft,
   Moon,
   Sun,
+  MessageSquare,
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -33,6 +34,7 @@ const sidebarLinks = [
   { name: 'Skills', href: '/admin/dashboard/skills', icon: Code2 },
   { name: 'Experience', href: '/admin/dashboard/experience', icon: Briefcase },
   { name: 'Projects', href: '/admin/dashboard/projects', icon: FolderKanban },
+  { name: 'Messages', href: '/admin/dashboard/messages', icon: MessageSquare },
   { name: 'Social Links', href: '/admin/dashboard/social', icon: Share2 },
   { name: 'Resume', href: '/admin/dashboard/resume', icon: FileDown },
   { name: 'Settings', href: '/admin/dashboard/settings', icon: Settings },
@@ -40,10 +42,33 @@ const sidebarLinks = [
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState('dark');
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Fetch unread messages count
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await fetch('/api/messages');
+      if (response.ok) {
+        const messages = await response.json();
+        const unread = messages.filter(m => !m.isRead).length;
+        setUnreadCount(unread);
+      }
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUnreadCount();
+    // Refresh count every 30 seconds
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Set sidebar open by default on large screens only
@@ -139,20 +164,29 @@ export default function AdminLayout({ children }) {
 
           {/* Navigation */}
           <nav className="flex-1 overflow-y-auto p-4! space-y-1">
-            {sidebarLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => {
-                  // Only close sidebar on mobile
-                  if (window.innerWidth < 1024) setSidebarOpen(false);
-                }}
-                className="flex items-center gap-3 px-4! py-3! rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)] transition-all duration-300"
-              >
-                <link.icon className="w-5 h-5" />
-                <span className="font-medium">{link.name}</span>
-              </Link>
-            ))}
+            {sidebarLinks.map((link) => {
+              const isActive = pathname === link.href || (link.href !== '/admin/dashboard' && pathname.startsWith(link.href));
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    // Only close sidebar on mobile
+                    if (window.innerWidth < 1024) setSidebarOpen(false);
+                  }}
+                  className={`flex items-center justify-between px-4! py-3! rounded-xl transition-all duration-300 ${
+                    isActive
+                      ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-bg)]'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <link.icon className="w-5 h-5" />
+                    <span className="font-medium">{link.name}</span>
+                  </div>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Logout */}
@@ -215,10 +249,18 @@ export default function AdminLayout({ children }) {
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
 
-              <button className="relative p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300">
+              <Link 
+                href="/admin/dashboard/messages"
+                className="relative z-10 p-2.5! rounded-xl bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:bg-[var(--glass-bg)] transition-all duration-300"
+                title={unreadCount > 0 ? `${unreadCount} unread message${unreadCount > 1 ? 's' : ''}` : 'Messages'}
+              >
                 <Bell className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-              </button>
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 z-20 min-w-[20px] h-5 px-1.5 bg-red-500 rounded-full text-xs font-bold text-white flex items-center justify-center">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
+              </Link>
 
               <div className="flex items-center gap-3 pl-4! border-l border-[var(--glass-border)]">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold text-sm text-white">

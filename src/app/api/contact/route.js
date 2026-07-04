@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(request) {
   try {
@@ -22,16 +23,7 @@ export async function POST(request) {
       );
     }
 
-    // Here you would typically:
-    // 1. Save to database using Prisma
-    // 2. Send notification email
-    // 3. Log the message
-
-    // For now, we'll just return success
-    // In production, uncomment the following:
-    /*
-    const { prisma } = await import('@/lib/prisma');
-    
+    // Save message to database
     const newMessage = await prisma.message.create({
       data: {
         name,
@@ -40,9 +32,8 @@ export async function POST(request) {
         message,
       },
     });
-    */
 
-    console.log('New contact form submission:', { name, email, subject, message });
+    console.log('New contact form submission saved:', newMessage.id);
 
     return NextResponse.json(
       { message: 'Message sent successfully', success: true },

@@ -24,6 +24,7 @@ export default function AdminDashboard() {
     profile: null,
     skills: [],
     projects: [],
+    messages: [],
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,19 +35,21 @@ export default function AdminDashboard() {
   const fetchDashboardData = async () => {
     setIsLoading(true);
     try {
-      const [profileRes, skillsRes, projectsRes] = await Promise.all([
+      const [profileRes, skillsRes, projectsRes, messagesRes] = await Promise.all([
         fetch('/api/profile'),
         fetch('/api/skills'),
         fetch('/api/projects'),
+        fetch('/api/messages'),
       ]);
 
-      const [profile, skills, projects] = await Promise.all([
+      const [profile, skills, projects, messages] = await Promise.all([
         profileRes.ok ? profileRes.json() : null,
         skillsRes.ok ? skillsRes.json() : [],
         projectsRes.ok ? projectsRes.json() : [],
+        messagesRes.ok ? messagesRes.json() : [],
       ]);
 
-      setStats({ profile, skills, projects });
+      setStats({ profile, skills, projects, messages });
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
     } finally {
@@ -101,6 +104,15 @@ export default function AdminDashboard() {
       icon: Info, 
       color: 'from-teal-500 to-cyan-500',
     },
+    { 
+      name: 'Messages', 
+      description: 'View contact submissions',
+      href: '/admin/dashboard/messages', 
+      icon: MessageSquare, 
+      color: 'from-rose-500 to-red-500',
+      count: stats.messages.length,
+      unread: stats.messages.filter(m => !m.isRead).length,
+    },
   ];
 
   return (
@@ -137,7 +149,7 @@ export default function AdminDashboard() {
               <Card className="hover:border-border/50 transition-all duration-300 group cursor-pointer h-full">
                 <CardContent className="pt-4 sm:pt-6">
                   <div className="flex items-start justify-between mb-3 sm:mb-4">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                    <div className={`relative z-10 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                       <action.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
                     <span className="text-3xl sm:text-4xl font-bold text-foreground/80">{action.count}</span>
