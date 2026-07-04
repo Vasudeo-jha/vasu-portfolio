@@ -144,10 +144,10 @@ export const projectsData = [
 ];
 
 export const socialLinksData = [
-  { platform: "GitHub", url: "https://github.com/vasujha", iconName: "Github" },
-  { platform: "LinkedIn", url: "https://linkedin.com/in/vasujha", iconName: "Linkedin" },
+  { platform: "GitHub", url: "https://github.com/Vasudeo-jha", iconName: "Github" },
+  { platform: "LinkedIn", url: "https://www.linkedin.com/in/vasu-deo-jha/", iconName: "Linkedin" },
   { platform: "Twitter", url: "https://twitter.com/vasujha", iconName: "Twitter" },
-  { platform: "Email", url: "mailto:contact@vasujha.dev", iconName: "Mail" }
+  { platform: "Email", url: "mailto:vasudeojha503@gmail.com", iconName: "Mail" }
 ];
 
 export const navLinks = [
