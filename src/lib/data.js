@@ -14,7 +14,7 @@ export const profileData = {
   phone: "+91 9876543210",
   location: "New Delhi, India",
   avatarUrl: "/images/avatar.jpg",
-  resumeUrl: "/resume.pdf"
+  resumeUrl: "/vasu-resume.pdf"
 };
 
 export const aboutData = {

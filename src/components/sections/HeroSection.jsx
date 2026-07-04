@@ -166,7 +166,7 @@ export default function HeroSection({ profile }) {
               </Link>
               {(data.resumeUrl || true) && (
                 <a 
-                  href={data.resumeUrl || '/resume.pdf'} 
+                  href={data.resumeUrl || '/vasu-resume.pdf'} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn-secondary"
