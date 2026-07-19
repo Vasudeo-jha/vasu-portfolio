@@ -9,12 +9,48 @@ import Image from 'next/image';
 import { profileData as fallbackProfile } from '@/lib/data';
 
 const floatingTechs = [
-  { name: 'PostgreSQL', color: '#336791', position: { top: '10%', right: '12%' }, delay: 0 },
-  { name: 'Next.js', color: '#ffffff', position: { top: '22%', right: '28%' }, delay: 0.5 },
-  { name: 'Node.js', color: '#339933', position: { top: '35%', right: '5%' }, delay: 1 },
-  { name: 'JavaScript', color: '#F7DF1E', position: { bottom: '25%', right: '8%' }, delay: 1.5 },
-  { name: 'Tailwind', color: '#38BDF8', position: { bottom: '12%', right: '22%' }, delay: 2 },
-  { name: 'React', color: '#61DAFB', position: { bottom: '35%', right: '25%' }, delay: 2.5 },
+  {
+    name: "PostgreSQL",
+    color: "#336791", // Deep PostgreSQL Blue
+    position: { top: "10%", right: "12%" },
+    delay: 0,
+  },
+  {
+    name: "Next.js",
+    color: "#6D28D9", // Royal Purple
+    position: { top: "22%", right: "28%" },
+    delay: 0.5,
+  },
+  {
+    name: "Node.js",
+    color: "#A13F1B", // Emerald Green
+    position: { bottom: "35%", right: "25%" },
+    delay: 2.5,
+  },
+  {
+    name: "JavaScript",
+    color: "#FACC15", // Rich Gold
+    position: { bottom: "25%", right: "8%" },
+    delay: 1.5,
+  },
+  {
+    name: "Tailwind",
+    color: "#06B6D4", // Cyan
+    position: { bottom: "12%", right: "22%" },
+    delay: 2,
+  },
+  {
+    name: "React",
+    color: "#3B82F6", // Modern Blue
+    position: { top: "35%", right: "5%" },
+    delay: 1,
+  },
+  {
+    name: "MongoDB",
+    color: "#246411", // Mint Green
+    position: { bottom: "45%", right: "30%" },
+    delay: 3,
+  },
 ];
 
 export default function HeroSection({ profile }) {
@@ -119,8 +155,8 @@ export default function HeroSection({ profile }) {
               transition={{ delay: 0.3 }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4"
             >
-              Hi, I&apos;m{' '}
-              <span className="gradient-text">{data.name}</span>{' '}
+              Hi, I&apos;m
+              <span className="gradient-text">{data.name}</span>
               <span className="inline-block animate-wave">👋</span>
             </motion.h1>
 

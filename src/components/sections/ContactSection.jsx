@@ -89,7 +89,7 @@ export default function ContactSection({ profile }) {
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Your Name
+                    Your Name <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -106,7 +106,7 @@ export default function ContactSection({ profile }) {
                 {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Your Email
+                    Your Email <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -129,7 +129,7 @@ export default function ContactSection({ profile }) {
                 {/* Subject */}
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Subject
+                    Subject <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -146,7 +146,7 @@ export default function ContactSection({ profile }) {
                 {/* Message */}
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
+                    Message <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     id="message"

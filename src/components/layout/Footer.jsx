@@ -99,7 +99,7 @@ export default function Footer({ profile }) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8! border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-16 pt-8! border-t dark:border-white/5 border-gray-400 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-400 text-sm flex flex-wrap items-center justify-center sm:justify-start gap-1">
             <span>© {currentYear} {data.name || 'Vasu Jha'}.</span>
             <span className="flex items-center gap-1">

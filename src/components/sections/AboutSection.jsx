@@ -27,7 +27,7 @@ export default function AboutSection({ profile, about }) {
   const stats = [
     { 
       icon: Calendar, 
-      value: aboutData.yearsExperience || fallbackAbout.stats?.yearsExperience || 3, 
+      value: aboutData.yearsExperience || fallbackAbout.stats?.yearsExperience || 4, 
       label: 'Years Experience',
       suffix: '+'
     },
