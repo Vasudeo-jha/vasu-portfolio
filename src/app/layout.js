@@ -12,6 +12,9 @@ export const metadata = {
     default: "Vasu Jha | Frontend Developer",
     template: "%s | Vasu Jha",
   },
+    icons: {
+    icon: "/vj.png",
+  },
   description:
     "Passionate Frontend Developer with experience in building modern, responsive and scalable web applications using React.js, Next.js, Tailwind CSS and PostgreSQL.",
   keywords: [
